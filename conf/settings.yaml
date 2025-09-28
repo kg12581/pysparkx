@@ -1,1 +1,90 @@
 #主要用这个 配置数据库信息
+
+
+
+########################################### 专有云 元数据结果集配置信息  ###########################################
+resultSet:
+  resultSetProject: cicdata_meta_dev
+  resultSetTable: tmp_metadata_result_info_tkg_20220301
+
+###################################### postgresql数据库信息 ######################################
+postgresql:
+  user_name: OgOCZfSHTqNbdeT5
+  password: EXWxnX0aeAjIPReoar2Xy9CoK0KIaN
+  url: 10079
+  database: cicdata_meta_dev
+  tables: dev_sc_bigdata_rg
+
+###################################### 专有云 cicdata_ods_uat 环境配置信息 ######################################
+cicdata_ods_uat:
+  #  tkg ak
+  accessKey: OgOCZfSHTqNbdeT5
+  accessKeySecret: EXWxnX0aeAjIPReoar2Xy9CoK0KIaN
+  projectId: 10077
+  projectName: cicdata_ods_uat
+  # 调度资源组
+  scResourceGroupName: dev_sc_bigdata_rg
+  # 集成资源组
+  diResourceGroupId: 8af730c80f374467a59a58051edc60e6
+  # dataworks的endpoint
+  endPoint: dataworks-public.res.cloud.cic.inter
+  # odps的endpoint
+  odpsEndPoint: http://service.cn-dalian-cic-d01.odps.ops.cloud.cic.inter/api
+  # 表主题
+  themes:
+    - 交易域#74
+    - 产品域#75
+    - 保单服务域#76
+    - 单证域#77
+    - 合作开放域#78
+    - 合约域#79
+    - 安全域#80
+    - 客户域#81
+    - 客户接触域#82
+    - 履约域#83
+    - 批改域#84
+    - 承保域#85
+    - 支付结算域#86
+    - 标的域#87
+    - 营销域#88
+    - 账务域#89
+    - 运营支撑域#90
+    - 综合履约平台#154
+    - 人伤处理平台#159
+    - 合作生态域#181
+
+###################################### 专有云 cicdata_ods_prod 环境配置信息 ######################################
+cicdata_ods_prod:
+  #  liuhu ak
+  accessKey: WojXnhbemkbeiB0G
+  accessKeySecret: N7sWCHxXRYjeklQ2e8epe6nCQ5Baig
+  projectId: 10122
+  projectName: cicdata_ods_prod
+  # 调度资源组
+  scResourceGroupName: dev_sc_bigdata_rg
+  # 集成资源组
+  diResourceGroupId: 8af730c80f374467a59a58051edc60e6
+  # dataworks的endpoint
+  endPoint: dataworks-public.res.cloud.cic.inter
+  # odps的endpoint
+  odpsEndPoint: http://service.cn-dalian-cic-d01.odps.ops.cloud.cic.inter/api
+  # 表主题
+  themes:
+    - 单证域#133
+    - 运营支撑域#134
+    - 交易域#136
+    - 产品域#137
+    - 保单服务域#138
+    - 合作开放域#139
+    - 合约域#140
+    - 安全域#141
+    - 客户域#142
+    - 客户接触域#143
+    - 履约域#144
+    - 批改域#145
+    - 承保域#146
+    - 支付结算域#147
+    - 标的域#148
+    - 营销域#149
+    - 账务域#150
+
