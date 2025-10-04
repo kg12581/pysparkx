@@ -9,11 +9,11 @@ resultSet:
 
 ###################################### postgresql数据库信息 ######################################
 postgresql:
-  user_name: OgOCZfSHTqNbdeT5
-  password: EXWxnX0aeAjIPReoar2Xy9CoK0KIaN
+  user_name: admin
+  password: Admin@123456
   url: 10079
   database: cicdata_meta_dev
-  tables: dev_sc_bigdata_rg
+  tables: answer_paper
 
 ###################################### 专有云 cicdata_ods_uat 环境配置信息 ######################################
 cicdata_ods_uat:

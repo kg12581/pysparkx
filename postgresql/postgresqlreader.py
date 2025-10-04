@@ -9,7 +9,7 @@ def postgresql_read():
         .getOrCreate()
 
     # PostgreSQL连接参数
-    db_url = "jdbc:postgresql://localhost:5432/qianfeng03"
+    db_url = "jdbc:postgresql://localhost:5432/information_schema"
     table_name = "answer_paper"
     properties = {
         "user": "admin",
