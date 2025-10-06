@@ -8,6 +8,6 @@
 数据开发：java写flink代码，python写pyspark代码，scala了解
 数据可视化powerbi
 
-
+sqlalchemy
 
 
