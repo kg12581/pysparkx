@@ -5,6 +5,11 @@ from psycopg2 import OperationalError as PgOperationalError
 from psycopg2 import ProgrammingError as PgProgrammingError
 import re
 
+"""
+实现mysql表的元数据信息批量创建目标数据库postgresql的ddl
+source: mysql,postgresql,oracle
+sink:postgresql,hive,doris
+"""
 
 class MySQLToPostgresMigrator:
     def __init__(self, mysql_config, pg_config):

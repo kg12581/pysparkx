@@ -5,6 +5,15 @@ from pymysqlreplication.row_event import (
     DeleteRowsEvent  # 删除事件
 )
 
+
+"""
+实现监控mysql指定库的表字段的变更信息，并发送群钉钉机器人消息
+source: mysql cdc,postgresql cdc,oracle cdc,sql server cdc,Opengauss CDC,MongoDB CDC
+sink: 邮件,钉钉机器人
+"""
+
+
+
 # 1. MySQL 连接配置
 mysql_settings = {
     "host": "localhost",  # MySQL 地址
@@ -26,8 +35,8 @@ stream = BinLogStreamReader(
     resume_stream=True,
     only_events=[WriteRowsEvent, UpdateRowsEvent, DeleteRowsEvent],
     # 仅监听 test_db 数据库的 user 表（可选，缩小监控范围）
-    only_schemas=["test_db"],
-    only_tables=["user"]
+    only_schemas=["qianfeng"],
+    only_tables=["question_difficulty"]
 )
 
 # 3. 持续监听并处理变更事件

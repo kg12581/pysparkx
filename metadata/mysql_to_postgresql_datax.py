@@ -3,6 +3,12 @@ import json
 import os
 from typing import List, Dict, Optional
 
+"""
+实现批量创建datax的json配置文件
+数据集成
+source: mysql,postgresql,oracle
+sink:postgresql,hive,doris
+"""
 
 class MySQLToPostgreSQLDataX:
     def __init__(self, mysql_host: str, mysql_port: int, mysql_user: str,
