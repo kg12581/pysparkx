@@ -3,6 +3,9 @@ from pyhive import hive
 from typing import List, Dict
 import re
 
+from pyspark.sql.functions import upper
+from soupsieve.util import lower
+
 
 class MySQL2Hive:
     def __init__(
@@ -115,8 +118,8 @@ class MySQL2Hive:
                                WHERE table_schema = %s
                                  AND table_type = 'BASE TABLE'
                                ORDER BY table_name
-                               """, (self.mysql_conn.db,))
-                tables = [row['table_name'] for row in cursor.fetchall()]
+                               """,(self.mysql_conn.db,))
+                tables = [row['table_name'.upper()] for row in cursor.fetchall()]
                 print(f"✅ 发现 {len(tables)} 个MySQL表需要同步")
                 return tables
         except Exception as e:
@@ -166,37 +169,33 @@ class MySQL2Hive:
         # 构建字段定义
         columns = []
         for field in table_schema:
-            field_name = field['column_name']
-            mysql_type = field['data_type']
+            field_name = field['column_name'.upper()]
+            mysql_type = field['data_type'.upper()]
             hive_type = self.map_mysql_type_to_hive(mysql_type)
 
             # 处理注释（转义单引号）
-            comment = field['column_comment'].replace("'", "\\'")
+            comment = field['column_comment'.upper()].replace("'", "\\'")
             comment_clause = f" COMMENT '{comment}'" if comment else ""
 
             # Hive通常不强制非空约束，这里仅做注释说明
-            nullable_comment = " -- 允许为NULL" if field['is_nullable'] else " -- 不允许为NULL"
+            # nullable_comment = " -- 允许为NULL" if field['is_nullable'] else " -- 不允许为NULL"
 
             # 拼接字段定义
-            columns.append(f"`{field_name}` {hive_type}{comment_clause}{nullable_comment}")
+            # columns.append(f"`{field_name}` {hive_type}{comment_clause}{nullable_comment}")
+            columns.append(f"`{field_name}` {hive_type}{comment_clause}")
 
         # 计算存储路径
         location = self.hive_location.format(db=self.hive_database, table=table_name)
 
         # 生成建表SQL（Hive特有语法）
         create_sql = f"""
-CREATE EXTERNAL TABLE IF NOT EXISTS `{self.hive_database}`.`{table_name}` (
-    {',    '.join(columns)}
+CREATE TABLE IF NOT EXISTS `{self.hive_database}`.`{table_name}` (
+    {(''',    
+      ''').join(columns)}
 )
-COMMENT '从MySQL表 {self.mysql_conn.db}.{table_name} 同步'
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
-WITH SERDEPROPERTIES (
-    'field.delim' = '\t',
-    'serialization.format' = '\t',
-    'escape.delim' = '\\'
-)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
 STORED AS {self.file_format}
-LOCATION '{location}';
         """.strip()
 
         return create_sql
@@ -251,7 +250,7 @@ LOCATION '{location}';
             print("✅ 已关闭MySQL连接")
         if self.hive_cursor:
             self.hive_cursor.close()
-            self.hive_cursor.connection.close()
+            # self.hive_cursor.connection.close()
             print("✅ 已关闭Hive连接")
 
 
@@ -263,17 +262,17 @@ if __name__ == "__main__":
             "host": "localhost",
             "port": 3306,
             "user": "root",
-            "password": "your_mysql_password",
-            "db": "your_mysql_database"
+            "password": "Admin@123456",
+            "db": "qianfeng"
         },
         # Hive配置（默认端口10000）
         "hive": {
             "host": "localhost",
             "port": 10000,
-            "user": "hive",
-            "database": "default",
-            "location": "/user/hive/warehouse/{db}.db/{table}",  # Hive表存储路径
-            "file_format": "ORC"  # 存储格式：ORC/PARQUET/TEXTFILE
+            "user": "kgt",
+            "database": "qianfeng",
+            # "location": "/user/hive/warehouse/{db}.db/{table}",  # Hive表存储路径
+            "file_format": "TEXTFILE"  # 存储格式：ORC/PARQUET/TEXTFILE
         }
     }
 
@@ -288,7 +287,7 @@ if __name__ == "__main__":
         hive_port=config["hive"]["port"],
         hive_user=config["hive"]["user"],
         hive_database=config["hive"]["database"],
-        hive_location=config["hive"]["location"],
+        # hive_location=config["hive"]["location"],
         file_format=config["hive"]["file_format"]
     )
 

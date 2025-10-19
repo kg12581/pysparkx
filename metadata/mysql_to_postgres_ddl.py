@@ -8,7 +8,7 @@ import re
 """
 实现mysql表的元数据信息批量创建目标数据库postgresql的ddl
 source: mysql,postgresql,oracle
-sink:postgresql,hive,doris
+sink: postgresql,hive,doris
 """
 
 class MySQLToPostgresMigrator:

@@ -1,0 +1,134 @@
+{
+    "job": {
+        "content": [
+            {
+                "reader": {
+                    "name": "mysqlreader",
+                    "parameter": {
+                        "username": "root",
+                        "password": "Admin@123456",
+                        "column": [
+                            "id",
+                            "exam_id",
+                            "paper_id",
+                            "examinee_id",
+                            "examinee_name",
+                            "examinee_num",
+                            "class_id",
+                            "class_name",
+                            "start_date",
+                            "exam_time",
+                            "submit_time",
+                            "objective_mark",
+                            "subject_mark",
+                            "subject_smart_mark",
+                            "check_state",
+                            "teacher_id",
+                            "objective_answer_json",
+                            "subject_answer_json",
+                            "subject_check_json",
+                            "objective_check_json",
+                            "evaluation_opinions"
+                        ],
+                        "splitPk": "",
+                        "connection": [
+                            {
+                                "table": [
+                                    "answer_paper"
+                                ],
+                                "jdbcUrl": [
+                                    "jdbc:mysql://localhost:3306/qianfeng"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "writer": {
+                    "name": "hdfswriter",
+                    "parameter": {
+                        "defaultFS": "hdfs://your_hdfs_host:your_hdfs_port",
+                        "fileType": "orc",
+                        "path": "/user/hive/warehouse/qianfeng.db/answer_paper",
+                        "fileName": "data",
+                        "writeMode": "append",
+                        "fieldDelimiter": "\t",
+                        "compress": "snappy",
+                        "hiveTable": "answer_paper",
+                        "hiveDatabase": "qianfeng",
+                        "column": [
+{
+"name": "id",
+"type": "INT"
+},{
+"name": "exam_id",
+"type": "INT"
+},{
+"name": "paper_id",
+"type": "INT"
+},{
+"name": "examinee_id",
+"type": "INT"
+},{
+"name": "examinee_name",
+"type": "STRING"
+},{
+"name": "examinee_num",
+"type": "string"
+},{
+"name": "class_id",
+"type": "INT"
+},{
+"name": "class_name",
+"type": "string"
+},{
+"name": "start_date",
+"type": "TIMESTAMP"
+},{
+"name": "exam_time",
+"type": "bigint"
+},{
+"name": "submit_time",
+"type": "TIMESTAMP"
+},{
+"name": "objective_mark",
+"type": "INT"
+},{
+"name": "subject_mark",
+"type": "INT"
+},{
+"name": "subject_smart_mark",
+"type": "INT"
+},{
+"name": "check_state",
+"type": "INT"
+},{
+"name": "teacher_id",
+"type": "INT"
+},{
+"name": "objective_answer_json",
+"type": "string"
+},{
+"name": "subject_answer_json",
+"type": "string"
+},{
+"name": "subject_check_json",
+"type": "string"
+},{
+"name": "objective_check_json",
+"type": "string"
+},{
+"name": "evaluation_opinions",
+"type": "string"
+}
+                        ]
+                    }
+                }
+            }
+        ],
+        "setting": {
+            "speed": {
+                "channel": 2
+            }
+        }
+    }
+}
