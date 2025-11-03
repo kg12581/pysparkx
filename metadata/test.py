@@ -1,40 +1,42 @@
 import pymysql
-from pyspark.sql.functions import upper
 
 
-def get_mysql_tables():
+def get_hive_metadata():
+    # 连接MySQL数据库，这里假设Hive元数据存储在MySQL中
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='Admin@123456',
+        database='hive_metastore',
+        charset='utf8mb4'
+    )
+
     try:
-        connection = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='Admin@123456',
-            database='qianfeng',
-            cursorclass=pymysql.cursors.DictCursor,
-            charset='utf8mb4'
-        )
-        cursor = connection.cursor()
+        with connection.cursor() as cursor:
+            # 查询DBS表获取所有数据库信息
+            sql = "SELECT * FROM DBS"
+            cursor.execute(sql)
+            databases = cursor.fetchall()
+            for db in databases:
+                print(f"Database: {db}")
 
-        sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = %s"
-        database_name = 'qianfeng'
-        cursor.execute(sql, (database_name,))
+            # 查询TBLS表获取所有表信息
+            sql = "SELECT * FROM TBLS"
+            cursor.execute(sql)
+            tables = cursor.fetchall()
+            for table in tables:
+                print(f"Table: {table}")
 
-        tables = []
-        for row in cursor.fetchall():
-            print(row)
-            # print('TABLE_NAME'))
-            if 'TABLE_NAME' in row:
-                tables.append(row['TABLE_NAME'])
-            else:
-                print('Warning: row does not contain table_name key')
+            # 查询COLUMNS_V2表获取所有列信息
+            sql = "SELECT * FROM COLUMNS_V2"
+            cursor.execute(sql)
+            columns = cursor.fetchall()
+            for column in columns:
+                print(f"Column: {column}")
 
-        cursor.close()
+    finally:
         connection.close()
-        return tables
-    except pymysql.Error as e:
-        print(f"Error connecting to MySQL: {e}")
-        return []
 
 
 if __name__ == "__main__":
-    tables = get_mysql_tables()
-    print(tables)
+    get_hive_metadata()

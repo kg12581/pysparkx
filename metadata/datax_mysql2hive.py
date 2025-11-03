@@ -59,42 +59,6 @@ class DatabaseConverter:
                     'enum': 'STRING',
                    'set': 'STRING',
                     'bit': 'BOOLEAN'
-                },
-                'doris': {
-                    # 数值类型
-                    'int': 'INT',
-                    'tinyint': 'TINYINT',
-                   'smallint': 'SMALLINT',
-                   'mediumint': 'INT',
-                    'bigint': 'BIGINT',
-                    'float': 'FLOAT',
-                    'double': 'DOUBLE',
-                    'decimal': 'DECIMAL',
-                    'numeric': 'DECIMAL',
-                    # 字符串类型
-                    'char': 'CHAR',
-                    'varchar': 'VARCHAR',
-                    'text': 'VARCHAR',
-                    'tinytext': 'VARCHAR',
-                   'mediumtext': 'VARCHAR',
-                    'longtext': 'VARCHAR',
-                    # 日期时间类型
-                    'date': 'DATE',
-                    'datetime': 'DATETIME',
-                    'timestamp': 'TIMESTAMP',
-                    'time': 'TIME',
-                    'year': 'INT',
-                    # 二进制类型
-                    'binary': 'BINARY',
-                    'varbinary': 'BINARY',
-                    'blob': 'BINARY',
-                    'tinyblob': 'BINARY',
-                   'mediumblob': 'BINARY',
-                    'longblob': 'BINARY',
-                    # 其他类型
-                    'enum': 'STRING',
-                   'set': 'STRING',
-                    'bit': 'BOOLEAN'
                 }
             }
         }
